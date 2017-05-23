@@ -26,23 +26,43 @@ router.post("/burgers/create", function(req, res) {
   
     var burger = req.body;
    console.log(burger); 
+
     db.Burger.create({ 
        Name:burger.burger_name, 
-          devoured:false  }).then(function()
+      devoured:false  }).then(function()
            {res.redirect('/');   })
     
     
   });
 
+// router.delete("/api/burgers/:id", function(req, res) {
+//     db.Author.destroy({
+//       where: {
+//         id: req.params.id
+//       }
+//     }).then(function() {
+//       res.json();
+//     });
+//   });
+
 
 // put route -> back to index
-router.put("/burgers/update", function(req, res) {
-  burger.update(req.body.burger_id, function(result) {
+router.put("/:id", function(req, res) {
+  db.Burger.update({
+    devoured: true,
+  },
+  {
+    where:{
+      id : req.params.id
+    }
+  }).then(function(dbBurger){
+    res.redirect("/");
+  });;
     // wrapper for orm.js that using MySQL update callback will return a log to console,
     // render back to index with handle
-    console.log(result);
-    res.redirect("/");
+   
+    
   });
-});
+};
 
 module.exports = router;
