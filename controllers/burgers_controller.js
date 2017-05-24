@@ -62,7 +62,7 @@ router.put("/:id", function(req, res) {
     // render back to index with handle
    
     
-  });
-};
+ 
+});
 
 module.exports = router;
